@@ -1,4 +1,4 @@
-# Explanation of Docker Containerization Project
+# Explanation of a Docker Containerization Project -IP2
 
 ## Objective 1: Choice of Base Image
 
