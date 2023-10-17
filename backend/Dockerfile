@@ -1,21 +1,26 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+# Use a smaller base image with Node.js
+FROM node:14-slim as build
 
-# Set the working directory to /app
+# Set the working directory for the build stage
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy package.json and package-lock.json for dependency installation
 COPY package*.json ./
 
-# Install server-side dependencies
-RUN npm install
+# Install dependencies
+RUN npm install --production
 
-# Copy the rest of the backend application code to the working directory
+# Copy the rest of the backend application code
 COPY . .
 
-# Expose the port the server runs on
-EXPOSE 3001
+# Use a smaller base image for the production stage
+FROM node:14-alpine
 
-# Define the command to run the backend server
-CMD ["npm", "start"]
+# Set the working directory for the production stage
+WORKDIR /app
 
+# Copy only the necessary files from the build stage
+COPY --from=build /app ./
+
+# Expose the port (adjust to your application's port)
+EXPOSE 5000

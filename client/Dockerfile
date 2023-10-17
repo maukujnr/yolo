@@ -1,21 +1,23 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+# Use a smaller base image with Node.js
+FROM node:14-slim as build
 
-# Set the working directory to /app
+# Set the working directory for the build stage
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy package.json and package-lock.json for dependency installation
 COPY package*.json ./
 
-# Install client-side dependencies
-RUN npm install
+# Install dependencies
+RUN npm install --production
 
-# Copy the rest of the client application code to the working directory
-COPY . .
+# Copy the build output
+COPY build/ /app/build/
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Use a smaller base image for the production stage
+FROM nginx:alpine
 
-# Define the command to run the client application
-CMD ["npm", "start"]
+# Copy the build output from the build stage to the Nginx web root
+COPY --from=build /app/build /usr/share/nginx/html
 
+# Expose port 80
+EXPOSE 80
