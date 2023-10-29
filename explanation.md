@@ -35,10 +35,12 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
-
+```
 
 For the backend application container, we install only production dependencies and copy only necessary files.
 We expose the required ports (80 for the client, 5000 for the backend).
+
+```Dockerfile
 # Use a smaller base image with Node.js
 FROM node:14-slim as build
 
@@ -65,9 +67,12 @@ COPY --from=build /app ./
 
 # Expose the port (adjust to your application's port)
 EXPOSE 5000
+```
 
 A docker-compose file is provided with the following contents:
-```
+
+```docker-compose.yml
+
 version: '3'
 services:
   client:
@@ -98,7 +103,7 @@ services:
 volumes:
   mongo-data:
 
-
+```
 
 ## Getting Started
 
@@ -107,16 +112,17 @@ volumes:
 ```bash
 git clone https://github.com/maukujnr/yolo.git
 
+```
 2. Navigate to the repository directory.
 ```bash
-Copy code
 cd yolo
-Run the application using Docker Compose.
-```bash
-Copy code
-docker-compose up -d
+```
+3. Run the application using Docker Compose.
 
-3. You can access the Yolo application in your web browser:
+```bash
+docker-compose up -d
+```
+4. You can access the Yolo application in your web browser:
 
 Client: http://localhost:3000
 Backend: http://localhost:3001
