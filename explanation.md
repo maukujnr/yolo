@@ -125,5 +125,5 @@ docker-compose up -d
 4. You can access the Yolo application in your web browser:
 
 Client: http://localhost:3000
-Backend: http://localhost:3001
+Backend: http://localhost:5000
 MongoDB is already configured for the Backend container.
