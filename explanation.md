@@ -66,3 +66,58 @@ COPY --from=build /app ./
 # Expose the port (adjust to your application's port)
 EXPOSE 5000
 
+A docker-compose file is provided with the following contents:
+```
+version: '3'
+services:
+  client:
+    build:
+      context: client
+    ports:
+      - "80:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: backend
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: mongodb://mongo:27017/yolomy
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+
+
+
+## Getting Started
+
+1. Clone this repository to your local machine.
+
+```bash
+git clone https://github.com/maukujnr/yolo.git
+
+2. Navigate to the repository directory.
+```bash
+Copy code
+cd yolo
+Run the application using Docker Compose.
+```bash
+Copy code
+docker-compose up -d
+
+3. You can access the Yolo application in your web browser:
+
+Client: http://localhost:3000
+Backend: http://localhost:3001
+MongoDB is already configured for the Backend container.
