@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
     # Provision the VM with Ansible
     config.vm.provision "ansible" do |ansible|
       # Specify the ansible playbook file with config tasks for this VM such as software installations
-      ansible.playbook = "ansible/playbooks/yolo-playbook.yml"
+      ansible.playbook = "yolo-playbook.yml"
   
       # Disable SSH key and certificate validation for Ansible
       ansible.extra_vars = { ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' }
