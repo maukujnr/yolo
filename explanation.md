@@ -127,3 +127,27 @@ docker-compose up -d
 Client: http://localhost:3000
 Backend: http://localhost:5000
 MongoDB is already configured for the Backend container.
+
+
+### IP3 Explanation
+To run this application, a vagrant configuration and an ansibleplaybook is provided at the root of this repo. You can follow the following steps:
+1. make sure you have Vagrant installed on your PC/MAC
+2. Clone the Yolo repository:
+```bash
+git clone https://github.com/maukujnr/yolo.git
+```
+3. Change your working directory to the cloned repository:
+
+```bash
+cd yolo
+```
+4. Use Vagrant to start and provision the virtual machine:
+
+```bash
+vagrant up
+```
+#NB: When Vagrant is installed on the Windows system, the version installed within the Linux distribution must match.
+By default Vagrant will not access features available on the Windows system from within the WSL. This means the VirtualBox and Hyper-V providers will not be available. To enable Windows access, which will also enable the VirtualBox and Hyper-V providers, set the ``VAGRANT_WSL_ENABLE_WINDOWS_ACCESS`` environment variable:
+``
+ export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+ ``
